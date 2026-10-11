@@ -1,9 +1,11 @@
 package com.rozplochowski.studio.classrooms.domain;
 
 import com.rozplochowski.studio.classrooms.domain.exception.InvalidClassroomException;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class Classroom {
 
    private Long id;
