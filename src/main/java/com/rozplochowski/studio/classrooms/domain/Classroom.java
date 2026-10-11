@@ -10,7 +10,7 @@ public class Classroom {
    private String name;
    private int capacity;
 
-   public Classroom(String name, int capacity) {
+   public Classroom(String name, Integer capacity) {
       validateName(name);
       validateCapacity(capacity);
 
@@ -18,7 +18,7 @@ public class Classroom {
       this.capacity = capacity;
    }
 
-   public void updateDetails(String name, int capacity) {
+   public void updateDetails(String name, Integer capacity) {
       validateName(name);
       validateCapacity(capacity);
 
@@ -26,7 +26,7 @@ public class Classroom {
       this.capacity = capacity;
    }
 
-   public static Classroom reconstitute(long id, String name, int capacity) {
+   public static Classroom reconstitute(long id, String name, Integer capacity) {
       var classroom = new Classroom(name, capacity);
       classroom.id = id;
       return classroom;
@@ -38,8 +38,8 @@ public class Classroom {
       }
    }
 
-   private void validateCapacity(int capacity) {
-      if (capacity <= 0) {
+   private void validateCapacity(Integer capacity) {
+      if (capacity == null || capacity <= 0) {
          throw new InvalidClassroomException("Classroom capacity cannot be less than or equal to zero");
       }
    }
