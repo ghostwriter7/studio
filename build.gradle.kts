@@ -9,6 +9,7 @@ version = "0.0.1-SNAPSHOT"
 description = "Studio"
 val mapstructVersion = "1.6.3"
 val lombokMapstructBinding = "0.2.0"
+val testcontainersVersion = "2.0.5"
 
 java {
     toolchain {
@@ -36,6 +37,12 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
     testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation(
+        platform("org.testcontainers:testcontainers-bom:$testcontainersVersion")
+    )
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("org.testcontainers:testcontainers-mysql")
     testCompileOnly("org.projectlombok:lombok")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testAnnotationProcessor("org.projectlombok:lombok")
