@@ -31,9 +31,10 @@ class UpdateClassroomServiceTest {
 
     @Test
     void shouldUpdateClassroom() {
-        var command = new UpdateClassroomCommand(10L, "New Classroom Name", 50);
-        var existing = Classroom.reconstitute(10L, "Old Classroom Name", 30);
-        var expected = Classroom.reconstitute(10L, "New Classroom Name", 50);
+        var id = 10L;
+        var command = new UpdateClassroomCommand(id, "New Classroom Name", 50);
+        var existing = Classroom.reconstitute(id, "Old Classroom Name", 30);
+        var expected = Classroom.reconstitute(id, command.name(), command.capacity());
 
         when(loadClassroomPort.loadById(command.id())).thenReturn(Optional.of(existing));
         when(saveClassroomPort.save(expected)).thenReturn(expected);
