@@ -19,6 +19,6 @@ public class ClassroomEntity {
     private String name;
 
     @Positive
-    private byte capacity;
+    private int capacity;
 
 }

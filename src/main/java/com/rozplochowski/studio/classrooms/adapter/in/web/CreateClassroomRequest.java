@@ -5,6 +5,6 @@ import jakarta.validation.constraints.Positive;
 
 public record CreateClassroomRequest(
         @NotBlank String name,
-        @Positive byte capacity
+        @Positive int capacity
 ) {
 }
