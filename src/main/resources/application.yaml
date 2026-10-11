@@ -1,3 +1,18 @@
 spring:
   application:
     name: Studio
+  datasource:
+    url: jdbc:mysql://localhost:3306/studio
+    username: studiouser
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.orm.jdbc.bind: trace
