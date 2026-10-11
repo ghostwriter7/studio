@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class UpdateClassroomService implements UpdateClassroomUseCase {
+class UpdateClassroomService implements UpdateClassroomUseCase {
 
     private final LoadClassroomPort loadClassroomPort;
     private final SaveClassroomPort saveClassroomPort;

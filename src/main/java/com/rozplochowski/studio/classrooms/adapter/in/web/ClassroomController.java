@@ -1,9 +1,6 @@
 package com.rozplochowski.studio.classrooms.adapter.in.web;
 
-import com.rozplochowski.studio.classrooms.application.port.in.CreateClassroomCommand;
-import com.rozplochowski.studio.classrooms.application.port.in.CreateClassroomUseCase;
-import com.rozplochowski.studio.classrooms.application.port.in.UpdateClassroomCommand;
-import com.rozplochowski.studio.classrooms.application.port.in.UpdateClassroomUseCase;
+import com.rozplochowski.studio.classrooms.application.port.in.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
@@ -20,6 +17,13 @@ import java.net.URI;
 class ClassroomController {
     private final CreateClassroomUseCase createClassroomUseCase;
     private final UpdateClassroomUseCase updateClassroomUseCase;
+    private final GetClassroomByIdUseCase getClassroomByIdUseCase;
+
+    @GetMapping("/{id}")
+    ClassroomResponse getClassroomById(@PathVariable @Positive long id) {
+        var classroom = getClassroomByIdUseCase.getById(id);
+        return new ClassroomResponse(classroom.getId(), classroom.getName(), classroom.getCapacity());
+    }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)

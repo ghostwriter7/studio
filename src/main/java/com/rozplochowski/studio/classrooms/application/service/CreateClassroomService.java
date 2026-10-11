@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class CreateClassroomService implements CreateClassroomUseCase {
+class CreateClassroomService implements CreateClassroomUseCase {
 
     private final SaveClassroomPort saveClassroomPort;
 
