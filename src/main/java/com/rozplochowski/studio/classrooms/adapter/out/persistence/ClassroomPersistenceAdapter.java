@@ -13,16 +13,21 @@ import java.util.Optional;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ClassroomPersistenceAdapter implements SaveClassroomPort, LoadClassroomPort {
     private final ClassroomRepository classroomRepository;
+    private final ClassroomMapper mapper;
 
     @Override
     public Classroom save(Classroom classroom) {
-        var entity = ClassroomMapper.INSTANCE.toEntity(classroom);
+        var entity = mapper.toEntity(classroom);
         var saved = classroomRepository.save(entity);
-        return ClassroomMapper.INSTANCE.toDomain(saved);
+        return toDomain(saved);
     }
 
     @Override
     public Optional<Classroom> loadById(long id) {
-        return classroomRepository.findById(id).map(ClassroomMapper.INSTANCE::toDomain);
+        return classroomRepository.findById(id).map(this::toDomain);
+    }
+
+    private Classroom toDomain(ClassroomEntity entity) {
+        return Classroom.reconstitute(entity.getId(), entity.getName(), entity.getCapacity());
     }
 }

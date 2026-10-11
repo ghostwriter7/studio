@@ -8,7 +8,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/classrooms")
@@ -18,10 +22,16 @@ class ClassroomController {
     private final UpdateClassroomUseCase updateClassroomUseCase;
 
     @PostMapping
-    ClassroomResponse createClassroom(@Valid @RequestBody CreateClassroomRequest request) {
+    @ResponseStatus(code = HttpStatus.CREATED)
+    ResponseEntity<ClassroomResponse> createClassroom(@Valid @RequestBody CreateClassroomRequest request) {
        var command = new CreateClassroomCommand(request.name(), request.capacity());
        var classroom = createClassroomUseCase.create(command);
-       return new ClassroomResponse(classroom.getId(), classroom.getName(), classroom.getCapacity());
+
+       var location = URI.create("/classrooms/" + classroom.getId());
+
+       return ResponseEntity
+               .created(location)
+               .body(new ClassroomResponse(classroom.getId(), classroom.getName(), classroom.getCapacity()));
     }
 
     @PutMapping("/{id}")
