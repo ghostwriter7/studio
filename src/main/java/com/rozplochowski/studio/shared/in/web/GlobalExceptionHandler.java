@@ -1,6 +1,7 @@
 package com.rozplochowski.studio.shared.in.web;
 
 import com.rozplochowski.studio.classrooms.application.exception.ClassroomNotFoundException;
+import com.rozplochowski.studio.classrooms.application.exception.DuplicateClassroomNameException;
 import com.rozplochowski.studio.classrooms.domain.exception.InvalidClassroomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -23,5 +24,12 @@ class GlobalExceptionHandler {
     })
     ProblemDetail handleInvalidClassroom(InvalidClassroomException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(exception = {
+            DuplicateClassroomNameException.class
+    })
+    ProblemDetail handleDuplicateClassroomName(DuplicateClassroomNameException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, exception.getMessage());
     }
 }
