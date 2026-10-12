@@ -1,6 +1,7 @@
 package com.rozplochowski.studio.classmanagement.adapter.in.web;
 
 import com.rozplochowski.studio.classmanagement.application.port.in.CreateDanceClassUseCase;
+import com.rozplochowski.studio.classmanagement.application.port.in.GetDanceClassUseCase;
 import com.rozplochowski.studio.classmanagement.application.port.in.UpdateDanceClassUseCase;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -18,7 +19,14 @@ import java.net.URI;
 class DanceClassController {
     private final CreateDanceClassUseCase createDanceClassUseCase;
     private final UpdateDanceClassUseCase updateDanceClassUseCase;
+    private final GetDanceClassUseCase getDanceClassUseCase;
     private final WebDanceClassMapper mapper;
+
+    @GetMapping("/{id}")
+    DanceClassResponse getById(@PathVariable @Positive long id) {
+        var danceClass = getDanceClassUseCase.getById(id);
+        return mapper.toResponse(danceClass);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
