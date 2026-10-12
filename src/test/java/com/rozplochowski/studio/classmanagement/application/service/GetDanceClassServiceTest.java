@@ -4,12 +4,15 @@ import com.rozplochowski.studio.classmanagement.application.exception.DanceClass
 import com.rozplochowski.studio.classmanagement.application.port.out.LoadDanceClassPort;
 import com.rozplochowski.studio.classmanagement.domain.DanceClass;
 import com.rozplochowski.studio.classmanagement.domain.Difficulty;
+import com.rozplochowski.studio.shared.application.in.PagedRequest;
+import com.rozplochowski.studio.shared.application.in.PagedResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,5 +43,16 @@ class GetDanceClassServiceTest {
         var actual = getDanceClassService.getById(20L);
 
         assertEquals(danceClass, actual);
+    }
+
+    @Test
+    void shouldGetAllDanceClasses() {
+        var pagedRequest = new PagedRequest(10, 2);
+        var pagedResponse = new PagedResponse<DanceClass>(List.of(), pagedRequest.pageNumber(), pagedRequest.pageSize(), 2);
+        when(loadDanceClassPort.getAll(pagedRequest)).thenReturn(pagedResponse);
+
+        var actual = getDanceClassService.getAll(pagedRequest);
+
+        assertEquals(pagedResponse, actual);
     }
 }
