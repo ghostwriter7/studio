@@ -21,7 +21,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/dance-classes")
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class DanceClassController {
+class DanceClassManagementController {
     private final CreateDanceClassUseCase createDanceClassUseCase;
     private final UpdateDanceClassUseCase updateDanceClassUseCase;
     private final GetDanceClassUseCase getDanceClassUseCase;

@@ -1,5 +1,6 @@
 package com.rozplochowski.studio.classmanagement.domain;
 
+import com.rozplochowski.studio.classmanagement.domain.exception.InvalidDanceClassException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -38,13 +39,13 @@ public class DanceClass {
 
     private void validateActivity(String activity) {
         if (activity == null || activity.isBlank()) {
-            throw new IllegalArgumentException("Activity cannot be blank");
+            throw new InvalidDanceClassException("Activity cannot be blank");
         }
     }
 
     private void validateDifficulty(Difficulty difficulty) {
         if (difficulty == null) {
-            throw new IllegalArgumentException("Difficulty level cannot be null");
+            throw new InvalidDanceClassException("Difficulty level cannot be null");
         }
     }
 }
