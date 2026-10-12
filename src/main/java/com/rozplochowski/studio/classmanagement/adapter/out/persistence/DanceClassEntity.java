@@ -18,6 +18,9 @@ public class DanceClassEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Integer version;
+
     private String activity;
 
     @Column(length = 2048)

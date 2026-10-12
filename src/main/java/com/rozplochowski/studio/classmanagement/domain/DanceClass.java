@@ -27,6 +27,15 @@ public class DanceClass {
         return danceClass;
     }
 
+    public void updateDetails(String activity, String description, Difficulty difficulty) {
+        validateActivity(activity);
+        validateDifficulty(difficulty);
+
+        this.activity = activity;
+        this.description = description;
+        this.difficulty = difficulty;
+    }
+
     private void validateActivity(String activity) {
         if (activity == null || activity.isBlank()) {
             throw new IllegalArgumentException("Activity cannot be blank");

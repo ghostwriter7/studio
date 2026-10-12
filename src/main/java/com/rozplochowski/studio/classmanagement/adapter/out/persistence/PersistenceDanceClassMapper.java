@@ -4,7 +4,7 @@ import com.rozplochowski.studio.classmanagement.domain.DanceClass;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-interface DanceClassMapper {
+interface PersistenceDanceClassMapper {
 
     DanceClassEntity toEntity(DanceClass danceClass);
 }
