@@ -63,7 +63,7 @@ class ClassManagementApiIntegrationTest {
                 jsonPath("$.difficulty").value(request.difficulty().name())
         };
 
-        var result = mockMvc.perform(post("/dance-classes")
+        var result = mockMvc.perform(post("/class-management")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -92,12 +92,12 @@ class ClassManagementApiIntegrationTest {
                 jsonPath("$.description").value(updateRequest.description()),
                 jsonPath("$.difficulty").value(updateRequest.difficulty().name())
         };
-        mockMvc.perform(put("/dance-classes/" + id)
+        mockMvc.perform(put("/class-management/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(updateRequest)))
                 .andExpectAll(matchers);
 
-        mockMvc.perform(get("/dance-classes/" + id)
+        mockMvc.perform(get("/class-management/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpectAll(matchers);
     }
@@ -105,7 +105,7 @@ class ClassManagementApiIntegrationTest {
     @Test
     void shouldRetrieveDanceClassById() throws Exception {
         var request = new CreateDanceClassRequest("Boogie Woogie", "Advanced class for experienced dancers", Difficulty.HARD);
-        var location = mockMvc.perform(post("/dance-classes")
+        var location = mockMvc.perform(post("/class-management")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
                 .andReturn().getResponse().getHeader("Location");
@@ -135,7 +135,7 @@ class ClassManagementApiIntegrationTest {
         }
 
         var expected = new PagedResponse<>(responses, 0, 10, 1);
-        mockMvc.perform(get("/dance-classes")
+        mockMvc.perform(get("/class-management")
                         .accept(MediaType.APPLICATION_JSON)
                         .queryParam("pageNumber", "0")
                         .queryParam("pageSize", "10"))
@@ -149,7 +149,7 @@ class ClassManagementApiIntegrationTest {
     @MethodSource("invalidCreateDanceClassRequests")
     void shouldFailToCreateDanceClassWithInvalidArguments(CreateDanceClassRequest request) throws Exception {
 
-        mockMvc.perform(post("/dance-classes")
+        mockMvc.perform(post("/class-management")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -171,12 +171,12 @@ class ClassManagementApiIntegrationTest {
         var id = createDanceClass(createRequest).id();
 
         var updateRequest = new UpdateDanceClassRequest(id, activity, "description", difficulty);
-        mockMvc.perform(put("/dance-classes/" + id)
+        mockMvc.perform(put("/class-management/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(updateRequest)))
                 .andExpect(status().isBadRequest());
 
-        mockMvc.perform(get("/dance-classes/" + id))
+        mockMvc.perform(get("/class-management/" + id))
                 .andExpectAll(status().isOk(),
                         content().json(
                                 mapper.writeValueAsString(new DanceClassResponse(id, "Solo Jazz", null, Difficulty.HARD))
@@ -193,7 +193,7 @@ class ClassManagementApiIntegrationTest {
     }
 
     private DanceClassResponse createDanceClass(CreateDanceClassRequest request) throws Exception {
-        var content = mockMvc.perform(post("/dance-classes")
+        var content = mockMvc.perform(post("/class-management")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())

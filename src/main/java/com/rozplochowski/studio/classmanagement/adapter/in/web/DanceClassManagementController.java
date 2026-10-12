@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/dance-classes")
+@RequestMapping("/class-management")
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DanceClassManagementController {
     private final CreateDanceClassUseCase createDanceClassUseCase;
@@ -55,7 +55,7 @@ class DanceClassManagementController {
         var command = mapper.toCommand(request);
         var danceClass = createDanceClassUseCase.create(command);
 
-        var location = URI.create("/dance-classes/" + danceClass.getId());
+        var location = URI.create("/class-management/" + danceClass.getId());
         return ResponseEntity
                 .created(location)
                 .body(mapper.toResponse(danceClass));

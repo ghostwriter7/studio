@@ -1,5 +1,6 @@
 package com.rozplochowski.studio.classmanagement.domain;
 
+import com.rozplochowski.studio.classmanagement.domain.exception.InvalidDanceClassException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,7 +15,7 @@ class DanceClassTest {
     @ParameterizedTest
     @MethodSource("invalidDanceClasses")
     void shouldFailToCreateDanceClassWithInvalidParameters(String activity, Difficulty difficulty) {
-        assertThrows(IllegalArgumentException.class, () -> new DanceClass(activity, "description", difficulty));
+        assertThrows(InvalidDanceClassException.class, () -> new DanceClass(activity, "description", difficulty));
     }
 
     @Test
