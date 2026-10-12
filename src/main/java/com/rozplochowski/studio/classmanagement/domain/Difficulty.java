@@ -1,6 +1,6 @@
 package com.rozplochowski.studio.classmanagement.domain;
 
-public enum DifficultyLevel {
+public enum Difficulty {
     EASY,
     MEDIUM,
     HARD,

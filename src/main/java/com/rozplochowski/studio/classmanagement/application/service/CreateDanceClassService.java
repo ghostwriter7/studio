@@ -18,7 +18,7 @@ class CreateDanceClassService implements CreateDanceClassUseCase {
     @Override
     @Transactional
     public DanceClass create(CreateDanceClassCommand command) {
-        var danceClass = new DanceClass(command.activity(), command.description(), command.difficultyLevel());
+        var danceClass = new DanceClass(command.activity(), command.description(), command.difficulty());
         return saveDanceClassPort.save(danceClass);
     }
 }

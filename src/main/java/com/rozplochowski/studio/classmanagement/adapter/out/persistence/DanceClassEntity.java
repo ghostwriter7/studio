@@ -1,6 +1,6 @@
 package com.rozplochowski.studio.classmanagement.adapter.out.persistence;
 
-import com.rozplochowski.studio.classmanagement.domain.DifficultyLevel;
+import com.rozplochowski.studio.classmanagement.domain.Difficulty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,7 @@ public class DanceClassEntity {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private DifficultyLevel difficulty;
+    private Difficulty difficulty;
 
 
 }

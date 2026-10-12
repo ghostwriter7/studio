@@ -1,10 +1,10 @@
 package com.rozplochowski.studio.classmanagement.adapter.in.web;
 
-import com.rozplochowski.studio.classmanagement.domain.DifficultyLevel;
+import com.rozplochowski.studio.classmanagement.domain.Difficulty;
 
 public record CreateDanceClassRequest(
         String activity,
         String description,
-        DifficultyLevel difficultyLevel
+        Difficulty difficulty
 ) {
 }
