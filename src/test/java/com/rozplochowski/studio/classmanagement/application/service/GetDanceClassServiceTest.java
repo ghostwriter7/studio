@@ -27,7 +27,7 @@ class GetDanceClassServiceTest {
 
     @Test
     void shouldThrowExceptionWhenDanceClassDoesNotExist() {
-        when(loadDanceClassPort.findById(10L)).thenReturn(Optional.empty());
+        when(loadDanceClassPort.getById(10L)).thenReturn(Optional.empty());
 
         assertThrows(DanceClassNotFoundException.class, () -> getDanceClassService.getById(10L));
     }
@@ -35,7 +35,7 @@ class GetDanceClassServiceTest {
     @Test
     void shouldFetchDanceClassSuccessfully() {
         var danceClass = DanceClass.reconstitute(20L, "Dance", "Beginners' class", Difficulty.EASY);
-        when(loadDanceClassPort.findById(20L)).thenReturn(Optional.of(danceClass));
+        when(loadDanceClassPort.getById(20L)).thenReturn(Optional.of(danceClass));
 
         var actual = getDanceClassService.getById(20L);
 

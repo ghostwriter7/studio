@@ -4,8 +4,11 @@ import com.rozplochowski.studio.classmanagement.application.port.out.LoadDanceCl
 import com.rozplochowski.studio.classmanagement.application.port.out.SaveDanceClassPort;
 import com.rozplochowski.studio.classmanagement.application.port.out.UpdateDanceClassPort;
 import com.rozplochowski.studio.classmanagement.domain.DanceClass;
+import com.rozplochowski.studio.shared.application.in.PagedRequest;
+import com.rozplochowski.studio.shared.application.in.PagedResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
@@ -25,7 +28,7 @@ class DanceClassPersistenceAdapter implements SaveDanceClassPort, LoadDanceClass
     }
 
     @Override
-    public Optional<DanceClass> findById(Long id) {
+    public Optional<DanceClass> getById(Long id) {
         return repository.findById(id).map(this::toDomain);
     }
 
@@ -41,6 +44,19 @@ class DanceClassPersistenceAdapter implements SaveDanceClassPort, LoadDanceClass
         entity.setDifficulty(danceClass.getDifficulty());
 
         return toDomain(repository.saveAndFlush(entity));
+    }
+
+    @Override
+    public PagedResponse<DanceClass> getAll(PagedRequest pagedRequest) {
+
+        var response = repository.findAll(PageRequest.of(pagedRequest.pageNumber(), pagedRequest.pageSize()));
+
+        var danceClasses = response.getContent()
+                .stream()
+                .map(this::toDomain)
+                .toList();
+
+        return new PagedResponse<>(danceClasses, response.getNumber(), response.getSize(), response.getTotalPages());
     }
 
     private DanceClass toDomain(DanceClassEntity entity) {

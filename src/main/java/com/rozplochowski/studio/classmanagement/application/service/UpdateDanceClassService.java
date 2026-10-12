@@ -20,7 +20,7 @@ class UpdateDanceClassService implements UpdateDanceClassUseCase {
     @Override
     @Transactional
     public DanceClass updateDanceClass(UpdateDanceClassCommand command) {
-        var danceClass = loadDanceClassPort.findById(command.id())
+        var danceClass = loadDanceClassPort.getById(command.id())
                 .orElseThrow(() -> new DanceClassNotFoundException(command.id()));
 
         danceClass.updateDetails(command.activity(), command.description(), command.difficulty());

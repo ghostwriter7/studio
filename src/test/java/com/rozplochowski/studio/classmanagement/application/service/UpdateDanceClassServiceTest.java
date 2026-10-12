@@ -33,7 +33,7 @@ class UpdateDanceClassServiceTest {
     @Test
     void shouldThrowExceptionWhenDanceClassCannotBeFound() {
         var command = new UpdateDanceClassCommand(10L, "Dance", "Introduction class for beginners", Difficulty.EASY);
-        when(loadDanceClassPort.findById(command.id())).thenReturn(Optional.empty());
+        when(loadDanceClassPort.getById(command.id())).thenReturn(Optional.empty());
 
         assertThrows(DanceClassNotFoundException.class, () -> updateDanceClassService.updateDanceClass(command));
 
@@ -43,7 +43,7 @@ class UpdateDanceClassServiceTest {
     @Test
     void shouldUpdateDanceClass() {
         var command = new UpdateDanceClassCommand(10L, "Dance", "Introduction class for beginners", Difficulty.EASY);
-        when(loadDanceClassPort.findById(command.id()))
+        when(loadDanceClassPort.getById(command.id()))
                 .thenReturn(Optional.of(DanceClass.reconstitute(command.id(), "Old Name", "Old Description", Difficulty.HARD)));
         var expected = DanceClass.reconstitute(command.id(), command.activity(), command.description(), command.difficulty());
         when(updateDanceClassPort.update(expected)).thenReturn(expected);

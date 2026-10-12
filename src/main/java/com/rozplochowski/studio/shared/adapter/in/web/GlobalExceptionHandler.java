@@ -1,5 +1,6 @@
-package com.rozplochowski.studio.shared.in.web;
+package com.rozplochowski.studio.shared.adapter.in.web;
 
+import com.rozplochowski.studio.classmanagement.application.exception.DanceClassNotFoundException;
 import com.rozplochowski.studio.classrooms.application.exception.ClassroomNotFoundException;
 import com.rozplochowski.studio.classrooms.application.exception.DuplicateClassroomNameException;
 import com.rozplochowski.studio.classrooms.domain.exception.InvalidClassroomException;
@@ -14,6 +15,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(exception = {
             ClassroomNotFoundException.class,
+            DanceClassNotFoundException.class
     })
     ProblemDetail handleClassNotFound(ClassroomNotFoundException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
